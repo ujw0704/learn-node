@@ -1,18 +1,30 @@
 import express from 'express';
 import cors from "cors"
+import connection from './db/connection.js';
+import user from './models/userSchema.js';
 
- 
-const app = express();
-const port = 8080;
+const app = express(); 
 
+app.use(cors({origin: "http://localhost:3000"}))
+app.use(express.json())
 
+app.post('/login', async(req, res)=>{
+    // console.log(req.body.name)
+    const username = req.body.name
+    const password = req.body.password
 
-
-app.get("/form",(req, res)=>{
-   res.send(form)
-   console.log(form)
+    const newuser = new user({
+        username,
+        password
+    })
+   const newdata =await newuser.save()
+    console.log(username, password)
+   res.status(200).send("hello is working")
 })
 
-app.listen(8000, () => {
-    console.log(`Server is listening at 8000`);
-}); 
+connection.then(()=>{
+
+    app.listen(8080,() => {
+        console.log(`Server is listening at 8000`);
+    }); 
+})
