@@ -1,0 +1,24 @@
+import mongoose, { Schema }  from "mongoose"
+
+//  new mongoose recives as an Object  so we nned to give key value as path provided as sand should  string
+const userSchema = new mongoose.Schema ({
+    username:{
+       type: "string" ,
+       require: true,
+       unique: false,
+
+
+    },
+
+    password:{
+        type: "string",
+        require: true,
+        unique: false,
+    }
+
+})
+
+
+const user =  mongoose.model('user',user1Schema)
+
+export default user;
